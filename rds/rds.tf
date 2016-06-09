@@ -1,12 +1,11 @@
-variable "target_vpc" {}
-variable "subnet_az1" {}
-variable "subnet_az2" {}
-
+module "2-zones-4-nets" {
+ 	source="../2-zones-4-nets"
+}
 
 resource "aws_security_group" "postgres" {
   name = "postgres"
   description = "Allow postgres"
-  vpc_id = "${var.target_vpc}"
+  vpc_id =  "${module.2-zones-4-nets.vpc_id}"
 
   ingress {
       from_port = 5432
@@ -31,7 +30,7 @@ resource "aws_security_group" "postgres" {
 resource "aws_db_subnet_group" "rds_subnet_group" {
     name = "main"
     description = "Our main group of subnets"
-    subnet_ids = ["${var.subnet_az1}","${var.subnet_az2}"]
+    subnet_ids = ["${module.2-zones-4-nets.private_subnet_a}","${module.2-zones-4-nets.private_subnet_c}"]
     tags {
         Name = "My DB subnet group"
     }

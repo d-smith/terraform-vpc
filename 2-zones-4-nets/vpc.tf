@@ -198,3 +198,17 @@ resource "aws_route_table_association" "us-west-1c-private" {
     subnet_id = "${aws_subnet.us-west-1c-private.id}"
     route_table_id = "${aws_route_table.us-west-1-private.id}"
 }
+
+// Module Outputs
+
+output "vpc_id" {
+    value = "${aws_vpc.default.id}"
+}
+
+output "private_subnet_a" {
+    value = "${aws_subnet.us-west-1a-private.id}"
+}
+
+output "private_subnet_c" {
+    value = "${aws_subnet.us-west-1c-private.id}"
+}
