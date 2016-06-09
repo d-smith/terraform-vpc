@@ -106,6 +106,7 @@ resource "aws_subnet" "us-west-1a-public" {
 
     cidr_block = "${var.public_subnet1_cidr}"
     availability_zone = "us-west-1a"
+    map_public_ip_on_launch = true
 
     tags {
         Name = "Public Subnet Zone A"
@@ -140,7 +141,7 @@ resource "aws_subnet" "us-west-1a-private" {
     availability_zone = "us-west-1a"
 
     tags {
-        Name = "Private Subnet Zone B"
+        Name = "Private Subnet Zone A"
     }
 }
 
@@ -170,6 +171,7 @@ resource "aws_subnet" "us-west-1c-public" {
 
     cidr_block = "${var.public_subnet2_cidr}"
     availability_zone = "us-west-1c"
+    map_public_ip_on_launch = true
 
     tags {
         Name = "Public Subnet Zone B"
