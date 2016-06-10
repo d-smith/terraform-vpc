@@ -18,6 +18,7 @@ resource "aws_subnet" "us-west-1a-public" {
 
     cidr_block = "${var.public_subnet_cidr}"
     availability_zone = "us-west-1a"
+    map_public_ip_on_launch = true
 
     tags {
         Name = "Public Subnet"
