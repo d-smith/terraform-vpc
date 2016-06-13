@@ -1,0 +1,20 @@
+{
+  "variables": {
+    "aws_access_key": "",
+    "aws_secret_key": "",
+    "my_subnet":"",
+    "my_vpc_id":""
+  },
+  "builders": [{
+    "type": "amazon-ebs",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+    "region": "us-west-1",
+    "source_ami": "ami-06116566",
+    "instance_type": "t2.micro",
+    "ssh_username": "ubuntu",
+    "subnet_id":"{{user `my_subnet`}}",
+    "vpc_id":"{{user `my_vpc_id`}}",
+    "ami_name": "consul {{timestamp}}"
+  }]
+}
