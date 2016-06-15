@@ -3,7 +3,9 @@
     "aws_access_key": "",
     "aws_secret_key": "",
     "my_subnet":"",
-    "my_vpc_id":""
+    "my_vpc_id":"",
+    "atlas_id":"",
+    "atlas_token":""
   },
   "builders": [{
     "type": "amazon-ebs",
@@ -16,5 +18,21 @@
     "subnet_id":"{{user `my_subnet`}}",
     "vpc_id":"{{user `my_vpc_id`}}",
     "ami_name": "consul {{timestamp}}"
-  }]
+  }],
+  "provisioners":[
+    {
+      "type": "file",
+      "source": "upstart.conf",
+      "destination": "/tmp/upstart.conf"
+    },
+    {
+      "type":"shell",
+      "script":"install.sh",
+      "environment_vars":[
+        "SERVER_COUNT=3",
+        "ATLAS_ID={{user `atlas_id`}}",
+        "ATLAS_TOKEN={{user `atlas_token`}}"
+      ]
+    }
+  ]
 }
