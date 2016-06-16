@@ -40,17 +40,18 @@ resource "aws_launch_configuration" "consul_launch" {
     image_id = "${var.consul_ami}"
     instance_type = "t2.micro"
     security_groups = ["${aws_security_group.consul_sg.id}"]
+    associate_public_ip_address = true
 }
 
 
 resource "aws_autoscaling_group" "consul_asg_a" {
   vpc_zone_identifier = ["${var.consul_zone_a_subnet}"]
   name = "consul_asg_a"
-  max_size = 2
-  min_size = 2
+  max_size = 3
+  min_size = 3
   health_check_grace_period = 300
   health_check_type = "EC2"
-  desired_capacity = 2
+  desired_capacity = 3
   force_delete = true
   launch_configuration = "${aws_launch_configuration.consul_launch.name}"
 }
