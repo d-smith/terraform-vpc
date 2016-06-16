@@ -5,3 +5,4 @@ variable "consul_ami" {
 
 variable "consul_vpc_id" {}
 variable "consul_zone_a_subnet" {}
+variable "key_name" {}

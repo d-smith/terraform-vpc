@@ -41,6 +41,7 @@ resource "aws_launch_configuration" "consul_launch" {
     instance_type = "t2.micro"
     security_groups = ["${aws_security_group.consul_sg.id}"]
     associate_public_ip_address = true
+    key_name = "${var.key_name}"
 }
 
 
