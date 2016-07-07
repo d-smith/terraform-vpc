@@ -17,7 +17,16 @@ resource "aws_instance" "server" {
         Name = "swarm-${count.index}"
     }
 
-    
+    connection {
+        user = "ubuntu"
+        key_file = "${var.key_path}"
+    }
+
+     provisioner "remote-exec" {
+        scripts = [
+            "${path.module}/install-swarm.sh",
+        ]
+    }
 }
 
 resource "aws_security_group" "swarm" {
