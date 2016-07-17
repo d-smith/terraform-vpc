@@ -1,11 +1,11 @@
-module "2-zones-4-nets" {
- 	source="../2-zones-4-nets"
+module "2x4-oregon" {
+ 	source="../2x4-oregon"
 }
 
 resource "aws_security_group" "postgres" {
   name = "postgres"
   description = "Allow postgres"
-  vpc_id =  "${module.2-zones-4-nets.vpc_id}"
+  vpc_id =  "${module.2x4-oregon.vpc_id}"
 
   ingress {
       from_port = 5432
@@ -30,7 +30,7 @@ resource "aws_security_group" "postgres" {
 resource "aws_db_subnet_group" "rds_subnet_group" {
     name = "main"
     description = "Our main group of subnets"
-    subnet_ids = ["${module.2-zones-4-nets.private_subnet_a}","${module.2-zones-4-nets.private_subnet_c}"]
+    subnet_ids = ["${module.2x4-oregon.private_subnet_a}","${module.2x4-oregon.private_subnet_b}"]
     tags {
         Name = "My DB subnet group"
     }
@@ -39,7 +39,7 @@ resource "aws_db_subnet_group" "rds_subnet_group" {
 resource "aws_db_instance" "default" {
   allocated_storage    = 5
   engine               = "postgres"
-  instance_class       = "db.t1.micro"
+  instance_class       = "db.t2.micro"
   name                 = "escopy"
   username             = "dbroot"
   password             = "password"
